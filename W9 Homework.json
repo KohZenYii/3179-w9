@@ -1,0 +1,48 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 800,
+  "height": 450,
+  "title": "Gross State Product Annual Growth (2022-23)",
+  "projection": {
+    "type": "equalEarth"
+  },
+
+      "data": {
+        "url": "https://raw.githubusercontent.com/KohZenYii/3179/refs/heads/main/states.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "lightgray",
+        "stroke": "white"
+      },
+"transform": [
+{
+"lookup": "properties.STATE_NAME",
+"from": {
+"data": {
+"url": "https://raw.githubusercontent.com/KohZenYii/3179/refs/heads/main/Gross%20State%20Product%20annual%20growth%2C%202022-23.csv"
+},
+"key": "Region",
+"fields": ["Gross State Product(%)"]
+}
+}
+],"mark": {"type": "geoshape"},
+"encoding": {
+"color": {
+"field": "Gross State Product(%)",
+"type": "quantitative"
+},
+"tooltip": [
+{"field": "properties.STATE_NAME", "type": "nominal", "title":
+"Country"},
+{"field": "Gross State Product(%)", "type": "quantitative"}
+]
+}
+}
+
+    
+    

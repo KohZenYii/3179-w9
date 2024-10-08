@@ -1,0 +1,9 @@
+#vis {
+    width: 90%; /* Take 90% of the width of the screen */
+    max-width: 1000px; /* Limit the max width to 1000px */
+    height: 600px; /* Set the height */
+    margin: 0 auto; /* Center the visualization horizontally */
+    padding: 10px; /* Add light padding */
+    background-color: #ffffff; /* Keep a plain white background */
+    border: 1px solid #ffffff; /* Add a simple border */
+}

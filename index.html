@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+
+</head>
+<body>
+    <div id="vis"></div>
+
+    <script type="text/javascript">
+        const spec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 800,
+  "height": 450,
+  "title": {
+            "text": "Gross State Product Annual Growth in Australia (2022 - 2023)",
+            "fontSize": 24  // Increase the font size of the title
+        },
+  "projection": {
+    "type": "equalEarth"
+  },
+
+      "data": {
+        "url": "https://raw.githubusercontent.com/KohZenYii/3179/refs/heads/main/js/states.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "lightgray",
+        "stroke": "white"
+      },
+"transform": [
+{
+"lookup": "properties.STATE_NAME",
+"from": {
+"data": {
+"url": "https://raw.githubusercontent.com/KohZenYii/3179/refs/heads/main/data/Gross%20State%20Product%20annual%20growth%2C%202022-23.csv"
+},
+"key": "Region",
+"fields": ["Gross State Product(%)"]
+}
+}
+],
+  "layer": [
+    {
+      "mark": {
+        "type": "geoshape"
+      },
+      "encoding": {
+        "color": {
+          "field": "Gross State Product(%)",
+          "type": "quantitative",
+          
+        },
+        "tooltip": [
+          {
+            "field": "properties.STATE_NAME",
+            "type": "nominal",
+            "title": "Country"
+          },
+          {
+            "field": "Gross State Product(%)",
+            "type": "quantitative"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"state": "New South Wales", "lat": -30.8688, "lon": 147.2093},
+          {"state": "Victoria", "lat": -35.8136, "lon": 144.9631},
+          {"state": "Queensland", "lat": -23.4698, "lon": 143.0251},
+          {"state": "South Australia", "lat": -27.9285, "lon": 134.6007},
+          {"state": "Western Australia", "lat": -25.9505, "lon": 120.8605},
+          {"state": "Tasmania", "lat": -42.8821, "lon": 147.3272},
+          {"state": "Northern Territory", "lat": -18.4634, "lon": 133.8456}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 17,
+        "color": "black",
+        "dy": 10
+      },
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "state"}
+      }
+    }
+  ]
+}
+;
+        vegaEmbed('#vis', spec).then(result => {
+        }).catch(console.error);
+    </script>
+</body>
+</html>
